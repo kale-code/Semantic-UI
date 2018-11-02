@@ -38,7 +38,7 @@ module.exports = function(callback) {
     return;
   }
 
-  if(config.rtl == 'both') {
+  if(config.rtl === 'both') {
     tasks.push('build-rtl');
   }
 
