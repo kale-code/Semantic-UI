@@ -12,9 +12,9 @@
 
 'use strict';
 
-window = (typeof window != 'undefined' && window.Math == Math)
+window = (typeof window !== 'undefined' && window.Math === Math)
   ? window
-  : (typeof self != 'undefined' && self.Math == Math)
+  : (typeof self !== 'undefined' && self.Math === Math)
     ? self
     : Function('return this')()
 ;
@@ -32,7 +32,7 @@ $.fn.modal = function(parameters) {
     performance    = [],
 
     query          = arguments[0],
-    methodInvoked  = (typeof query == 'string'),
+    methodInvoked  = (typeof query === 'string'),
     queryArguments = [].slice.call(arguments, 1),
 
     requestAnimationFrame = window.requestAnimationFrame
@@ -285,7 +285,7 @@ $.fn.modal = function(parameters) {
               keyCode   = event.which,
               escapeKey = 27
             ;
-            if(keyCode == escapeKey) {
+            if(keyCode === escapeKey) {
               if(settings.closable) {
                 module.debug('Escape key pressed hiding modal');
                 module.hide();
@@ -588,7 +588,7 @@ $.fn.modal = function(parameters) {
               width         : modalWidth,
               height        : modalHeight + settings.offset,
               scrollHeight  : scrollHeight + settings.offset,
-              contextHeight : (settings.context == 'body')
+              contextHeight : (settings.context === 'body')
                 ? $(window).height()
                 : $dimmable.height(),
             };
@@ -600,7 +600,7 @@ $.fn.modal = function(parameters) {
 
         can: {
           useFlex: function() {
-            return (settings.useFlex == 'auto')
+            return (settings.useFlex === 'auto')
               ? settings.detachable && !module.is.ie()
               : settings.useFlex
             ;
@@ -880,22 +880,22 @@ $.fn.modal = function(parameters) {
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
+          if(typeof query === 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
+              var camelCaseValue = (depth !== maxDepth)
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
                 object = object[camelCaseValue];
               }
               else if( object[camelCaseValue] !== undefined ) {
                 found = object[camelCaseValue];
                 return false;
               }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
                 object = object[value];
               }
               else if( object[value] !== undefined ) {
