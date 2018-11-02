@@ -12,17 +12,17 @@
 
 'use strict';
 
-window = (typeof window != 'undefined' && window.Math == Math)
+window = (typeof window !== 'undefined' && window.Math === Math)
   ? window
-  : (typeof self != 'undefined' && self.Math == Math)
+  : (typeof self !== 'undefined' && self.Math === Math)
     ? self
     : Function('return this')()
 ;
 
 var
-  global = (typeof window != 'undefined' && window.Math == Math)
+  global = (typeof window !== 'undefined' && window.Math === Math)
     ? window
-    : (typeof self != 'undefined' && self.Math == Math)
+    : (typeof self !== 'undefined' && self.Math === Math)
       ? self
       : Function('return this')()
 ;
@@ -37,7 +37,7 @@ $.fn.progress = function(parameters) {
     performance    = [],
 
     query          = arguments[0],
-    methodInvoked  = (typeof query == 'string'),
+    methodInvoked  = (typeof query === 'string'),
     queryArguments = [].slice.call(arguments, 1),
 
     returnedValue
@@ -266,7 +266,7 @@ $.fn.progress = function(parameters) {
           },
 
           updateInterval: function() {
-            if(settings.updateInterval == 'auto') {
+            if(settings.updateInterval === 'auto') {
               return settings.duration;
             }
             return settings.updateInterval;
@@ -416,7 +416,7 @@ $.fn.progress = function(parameters) {
           },
           duration: function(duration) {
             duration = duration || settings.duration;
-            duration = (typeof duration == 'number')
+            duration = (typeof duration === 'number')
               ? duration + 'ms'
               : duration
             ;
@@ -428,7 +428,7 @@ $.fn.progress = function(parameters) {
             ;
           },
           percent: function(percent) {
-            percent = (typeof percent == 'string')
+            percent = (typeof percent === 'string')
               ? +(percent.replace('%', ''))
               : percent
             ;
@@ -522,11 +522,11 @@ $.fn.progress = function(parameters) {
             if(text !== undefined) {
               $progress.text( module.get.text(text) );
             }
-            else if(settings.label == 'ratio' && module.total) {
+            else if(settings.label === 'ratio' && module.total) {
               module.verbose('Adding ratio to bar label');
               $progress.text( module.get.text(settings.text.ratio) );
             }
-            else if(settings.label == 'percent') {
+            else if(settings.label === 'percent') {
               module.verbose('Adding percentage to bar label');
               $progress.text( module.get.text(settings.text.percent) );
             }
@@ -775,22 +775,22 @@ $.fn.progress = function(parameters) {
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
+          if(typeof query === 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
+              var camelCaseValue = (depth !== maxDepth)
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
                 object = object[camelCaseValue];
               }
               else if( object[camelCaseValue] !== undefined ) {
                 found = object[camelCaseValue];
                 return false;
               }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
                 object = object[value];
               }
               else if( object[value] !== undefined ) {
