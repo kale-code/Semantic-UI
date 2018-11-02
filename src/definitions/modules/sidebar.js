@@ -12,9 +12,9 @@
 
 'use strict';
 
-window = (typeof window != 'undefined' && window.Math == Math)
+window = (typeof window !== 'undefined' && window.Math === Math)
   ? window
-  : (typeof self != 'undefined' && self.Math == Math)
+  : (typeof self !== 'undefined' && self.Math === Math)
     ? self
     : Function('return this')()
 ;
@@ -33,7 +33,7 @@ $.fn.sidebar = function(parameters) {
     performance     = [],
 
     query           = arguments[0],
-    methodInvoked   = (typeof query == 'string'),
+    methodInvoked   = (typeof query === 'string'),
     queryArguments  = [].slice.call(arguments, 1),
 
     requestAnimationFrame = window.requestAnimationFrame
@@ -241,7 +241,7 @@ $.fn.sidebar = function(parameters) {
                 + ' }'
               ;
             }
-            else if(direction === 'top' || direction == 'bottom') {
+            else if(direction === 'top' || direction === 'bottom') {
               style  += ''
                 + ' .ui.visible.' + direction + '.sidebar ~ .fixed,'
                 + ' .ui.visible.' + direction + '.sidebar ~ .pusher {'
@@ -263,7 +263,7 @@ $.fn.sidebar = function(parameters) {
                   + ' }'
                 ;
               }
-              else if(direction === 'top' || direction == 'bottom') {
+              else if(direction === 'top' || direction === 'bottom') {
                 style  += ''
                   + ' body.pushable > .ui.visible.' + direction + '.sidebar ~ .pusher:after {'
                   + '   -webkit-transform: translate3d(0, ' + distance[direction] + 'px, 0);'
@@ -315,7 +315,7 @@ $.fn.sidebar = function(parameters) {
             module.cache = {
               width  : $module.outerWidth(),
               height : $module.outerHeight(),
-              rtl    : ($module.css('direction') == 'rtl')
+              rtl    : ($module.css('direction') === 'rtl')
             };
           },
           layout: function() {
@@ -378,7 +378,7 @@ $.fn.sidebar = function(parameters) {
               module.debug('Other sidebars currently visible');
               if(settings.exclusive) {
                 // if not overlay queue animation after hide
-                if(settings.transition != 'overlay') {
+                if(settings.transition !== 'overlay') {
                   module.hideOthers(module.show);
                   return;
                 }
@@ -439,7 +439,7 @@ $.fn.sidebar = function(parameters) {
           $otherSidebars
             .sidebar('hide', function() {
               callbackCount++;
-              if(callbackCount == sidebarCount) {
+              if(callbackCount === sidebarCount) {
                 callback();
               }
             })
@@ -470,7 +470,7 @@ $.fn.sidebar = function(parameters) {
             ? callback
             : function(){}
           ;
-          if(settings.transition == 'scale down') {
+          if(settings.transition === 'scale down') {
             module.scrollToTop();
           }
           module.set.transition(transition);
@@ -485,7 +485,7 @@ $.fn.sidebar = function(parameters) {
             module.set.dimmed();
           };
           transitionEnd = function(event) {
-            if( event.target == $transition[0] ) {
+            if( event.target === $transition[0] ) {
               $transition.off(transitionEvent + elementNamespace, transitionEnd);
               module.remove.animating();
               module.bind.scrollLock();
@@ -503,7 +503,7 @@ $.fn.sidebar = function(parameters) {
         pullPage: function(callback) {
           var
             transition = module.get.transition(),
-            $transition = (transition == 'overlay' || module.othersActive())
+            $transition = (transition === 'overlay' || module.othersActive())
               ? $module
               : $pusher,
             animate,
@@ -527,12 +527,12 @@ $.fn.sidebar = function(parameters) {
             }
           };
           transitionEnd = function(event) {
-            if( event.target == $transition[0] ) {
+            if( event.target === $transition[0] ) {
               $transition.off(transitionEvent + elementNamespace, transitionEnd);
               module.remove.animating();
               module.remove.transition();
               module.remove.inlineCSS();
-              if(transition == 'scale down' || (settings.returnScroll && module.is.mobile()) ) {
+              if(transition === 'scale down' || (settings.returnScroll && module.is.mobile()) ) {
                 module.scrollBack();
               }
               callback.call(element);
@@ -669,10 +669,10 @@ $.fn.sidebar = function(parameters) {
               transition
             ;
             transition = ( module.is.mobile() )
-              ? (settings.mobileTransition == 'auto')
+              ? (settings.mobileTransition === 'auto')
                 ? settings.defaultTransition.mobile[direction]
                 : settings.mobileTransition
-              : (settings.transition == 'auto')
+              : (settings.transition === 'auto')
                 ? settings.defaultTransition.computer[direction]
                 : settings.transition
             ;
@@ -757,7 +757,7 @@ $.fn.sidebar = function(parameters) {
           },
           rtl: function () {
             if(module.cache.rtl === undefined) {
-              module.cache.rtl = ($module.css('direction') == 'rtl');
+              module.cache.rtl = ($module.css('direction') === 'rtl');
             }
             return module.cache.rtl;
           }
@@ -879,22 +879,22 @@ $.fn.sidebar = function(parameters) {
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
+          if(typeof query === 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
+              var camelCaseValue = (depth !== maxDepth)
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
                 object = object[camelCaseValue];
               }
               else if( object[camelCaseValue] !== undefined ) {
                 found = object[camelCaseValue];
                 return false;
               }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
                 object = object[value];
               }
               else if( object[value] !== undefined ) {
