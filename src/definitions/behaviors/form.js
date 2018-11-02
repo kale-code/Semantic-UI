@@ -12,9 +12,9 @@
 
 'use strict';
 
-window = (typeof window != 'undefined' && window.Math == Math)
+window = (typeof window !== 'undefined' && window.Math === Math)
   ? window
-  : (typeof self != 'undefined' && self.Math == Math)
+  : (typeof self !== 'undefined' && self.Math === Math)
     ? self
     : Function('return this')()
 ;
@@ -29,7 +29,7 @@ $.fn.form = function(parameters) {
 
     query            = arguments[0],
     legacyParameters = arguments[1],
-    methodInvoked    = (typeof query == 'string'),
+    methodInvoked    = (typeof query === 'string'),
     queryArguments   = [].slice.call(arguments, 1),
     returnedValue
   ;
@@ -261,7 +261,7 @@ $.fn.form = function(parameters) {
           },
           // duck type rule test
           shorthandRules: function(rules) {
-            return (typeof rules == 'string' || $.isArray(rules));
+            return (typeof rules === 'string' || $.isArray(rules));
           },
           empty: function($field) {
             if(!$field || $field.length === 0) {
@@ -326,13 +326,13 @@ $.fn.form = function(parameters) {
                   escape : 27
                 }
               ;
-              if( key == keyCode.escape) {
+              if( key === keyCode.escape) {
                 module.verbose('Escape key pressed blurring field');
                 $field
                   .blur()
                 ;
               }
-              if(!event.ctrlKey && key == keyCode.enter && isInput && !isInDropdown && !isCheckbox) {
+              if(!event.ctrlKey && key === keyCode.enter && isInput && !isInDropdown && !isCheckbox) {
                 if(!keyHeldDown) {
                   $field
                     .one('keyup' + eventNamespace, module.event.field.keyup)
@@ -358,7 +358,7 @@ $.fn.form = function(parameters) {
                   module.validate.field( validationRules );
                 }
               }
-              else if(settings.on == 'blur') {
+              else if(settings.on === 'blur') {
                 if(validationRules) {
                   module.validate.field( validationRules );
                 }
@@ -370,7 +370,7 @@ $.fn.form = function(parameters) {
                 $fieldGroup = $field.closest($group),
                 validationRules = module.get.validation($field)
               ;
-              if(validationRules && (settings.on == 'change' || ( $fieldGroup.hasClass(className.error) && settings.revalidate) )) {
+              if(validationRules && (settings.on === 'change' || ( $fieldGroup.hasClass(className.error) && settings.revalidate) )) {
                 clearTimeout(module.timer);
                 module.timer = setTimeout(function() {
                   module.debug('Revalidating field', $field,  module.get.validation($field));
@@ -399,7 +399,7 @@ $.fn.form = function(parameters) {
             return rule.type;
           },
           changeEvent: function(type, $input) {
-            if(type == 'checkbox' || type == 'radio' || type == 'hidden' || $input.is('select')) {
+            if(type === 'checkbox' || type === 'radio' || type === 'hidden' || $input.is('select')) {
               return 'change';
             }
             else {
@@ -419,7 +419,7 @@ $.fn.form = function(parameters) {
               fullFields = {}
             ;
             $.each(fields, function(name, rules) {
-              if(typeof rules == 'string') {
+              if(typeof rules === 'string') {
                 rules = [rules];
               }
               fullFields[name] = {
@@ -450,7 +450,7 @@ $.fn.form = function(parameters) {
             }
             if(requiresName) {
               $label = $field.closest(selector.group).find('label').eq(0);
-              name = ($label.length == 1)
+              name = ($label.length === 1)
                 ? $label.text()
                 : $field.prop('placeholder') || settings.text.unspecifiedField
               ;
@@ -547,7 +547,7 @@ $.fn.form = function(parameters) {
             }
             $.each(validation, function(fieldName, field) {
               identifier = field.identifier || fieldName;
-              if( module.get.field(identifier)[0] == $field[0] ) {
+              if( module.get.field(identifier)[0] === $field[0] ) {
                 field.identifier = identifier;
                 fieldValidation = field;
               }
@@ -603,7 +603,7 @@ $.fn.form = function(parameters) {
                 }
                 else {
                   if(isRadio) {
-                    if(values[name] === undefined || values[name] == false) {
+                    if(values[name] === undefined || values[name] === false) {
                       values[name] = (isChecked)
                         ? value || true
                         : false
@@ -703,7 +703,7 @@ $.fn.form = function(parameters) {
               $prompt      = $fieldGroup.children(selector.prompt),
               promptExists = ($prompt.length !== 0)
             ;
-            errors = (typeof errors == 'string')
+            errors = (typeof errors === 'string')
               ? [errors]
               : errors
             ;
@@ -754,12 +754,12 @@ $.fn.form = function(parameters) {
                 ? rule
                 : [rule]
             ;
-            if(rule == undefined) {
+            if(rule === undefined) {
               module.debug('Removed all rules');
               validation[field].rules = [];
               return;
             }
-            if(validation[field] == undefined || !$.isArray(validation[field].rules)) {
+            if(validation[field] === undefined || !$.isArray(validation[field].rules)) {
               return;
             }
             $.each(validation[field].rules, function(index, rule) {
@@ -954,7 +954,7 @@ $.fn.form = function(parameters) {
               ? showErrors
               : true
             ;
-            if(typeof field == 'string') {
+            if(typeof field === 'string') {
               module.verbose('Validating field', field);
               fieldName = field;
               field     = validation[field];
@@ -1147,22 +1147,22 @@ $.fn.form = function(parameters) {
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
+          if(typeof query === 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
+              var camelCaseValue = (depth !== maxDepth)
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
                 object = object[camelCaseValue];
               }
               else if( object[camelCaseValue] !== undefined ) {
                 found = object[camelCaseValue];
                 return false;
               }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
                 object = object[value];
               }
               else if( object[value] !== undefined ) {
@@ -1387,7 +1387,7 @@ $.fn.form.settings = {
       if( !range || ['', '..'].indexOf(range) !== -1) {
         // do nothing
       }
-      else if(range.indexOf('..') == -1) {
+      else if(range.indexOf('..') === -1) {
         if(intRegExp.test(range)) {
           min = max = range - 0;
         }
@@ -1420,38 +1420,38 @@ $.fn.form.settings = {
 
     // is value (case insensitive)
     is: function(value, text) {
-      text = (typeof text == 'string')
+      text = (typeof text === 'string')
         ? text.toLowerCase()
         : text
       ;
-      value = (typeof value == 'string')
+      value = (typeof value === 'string')
         ? value.toLowerCase()
         : value
       ;
-      return (value == text);
+      return (value === text);
     },
 
     // is value
     isExactly: function(value, text) {
-      return (value == text);
+      return (value === text);
     },
 
     // value is not another value (case insensitive)
     not: function(value, notValue) {
-      value = (typeof value == 'string')
+      value = (typeof value === 'string')
         ? value.toLowerCase()
         : value
       ;
-      notValue = (typeof notValue == 'string')
+      notValue = (typeof notValue === 'string')
         ? notValue.toLowerCase()
         : notValue
       ;
-      return (value != notValue);
+      return (value !== notValue);
     },
 
     // value is not another value (case sensitive)
     notExactly: function(value, notValue) {
-      return (value != notValue);
+      return (value !== notValue);
     },
 
     // value contains text (insensitive)
@@ -1501,7 +1501,7 @@ $.fn.form.settings = {
     // is exactly length
     exactLength: function(value, requiredLength) {
       return (value !== undefined)
-        ? (value.length == requiredLength)
+        ? (value.length === requiredLength)
         : false
       ;
     },
@@ -1533,7 +1533,7 @@ $.fn.form.settings = {
         matchingValue = $('[name="' + identifier +'[]"]');
       }
       return (matchingValue !== undefined)
-        ? ( value.toString() == matchingValue.toString() )
+        ? ( value.toString() === matchingValue.toString() )
         : false
       ;
     },
@@ -1609,7 +1609,7 @@ $.fn.form.settings = {
         },
         valid         = {},
         validCard     = false,
-        requiredTypes = (typeof cardTypes == 'string')
+        requiredTypes = (typeof cardTypes === 'string')
           ? cardTypes.split(',')
           : false,
         unionPay,
@@ -1671,30 +1671,30 @@ $.fn.form.settings = {
     },
 
     minCount: function(value, minCount) {
-      if(minCount == 0) {
+      if(minCount === 0) {
         return true;
       }
-      if(minCount == 1) {
+      if(minCount === 1) {
         return (value !== '');
       }
       return (value.split(',').length >= minCount);
     },
 
     exactCount: function(value, exactCount) {
-      if(exactCount == 0) {
+      if(exactCount === 0) {
         return (value === '');
       }
-      if(exactCount == 1) {
+      if(exactCount === 1) {
         return (value !== '' && value.search(',') === -1);
       }
-      return (value.split(',').length == exactCount);
+      return (value.split(',').length === exactCount);
     },
 
     maxCount: function(value, maxCount) {
-      if(maxCount == 0) {
+      if(maxCount === 0) {
         return false;
       }
-      if(maxCount == 1) {
+      if(maxCount === 1) {
         return (value.search(',') === -1);
       }
       return (value.split(',').length <= maxCount);
