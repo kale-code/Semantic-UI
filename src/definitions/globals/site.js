@@ -16,7 +16,7 @@ $.site = $.fn.site = function(parameters) {
     performance    = [],
 
     query          = arguments[0],
-    methodInvoked  = (typeof query == 'string'),
+    methodInvoked  = (typeof query === 'string'),
     queryArguments = [].slice.call(arguments, 1),
 
     settings        = ( $.isPlainObject(parameters) )
@@ -63,13 +63,13 @@ $.site = $.fn.site = function(parameters) {
           module.verbose('Console not available, normalizing events');
           module.disable.console();
         }
-        if (typeof console.group == 'undefined' || typeof console.groupEnd == 'undefined' || typeof console.groupCollapsed == 'undefined') {
+        if (typeof console.group === 'undefined' || typeof console.groupEnd === 'undefined' || typeof console.groupCollapsed === 'undefined') {
           module.verbose('Console group not available, normalizing events');
           window.console.group = function() {};
           window.console.groupEnd = function() {};
           window.console.groupCollapsed = function() {};
         }
-        if (typeof console.markTimeline == 'undefined') {
+        if (typeof console.markTimeline === 'undefined') {
           module.verbose('Mark timeline not available, normalizing events');
           window.console.markTimeline = function() {};
         }
@@ -357,22 +357,22 @@ $.site = $.fn.site = function(parameters) {
       ;
       passedArguments = passedArguments || queryArguments;
       context         = element         || context;
-      if(typeof query == 'string' && object !== undefined) {
+      if(typeof query === 'string' && object !== undefined) {
         query    = query.split(/[\. ]/);
         maxDepth = query.length - 1;
         $.each(query, function(depth, value) {
-          var camelCaseValue = (depth != maxDepth)
+          var camelCaseValue = (depth !== maxDepth)
             ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
             : query
           ;
-          if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+          if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
             object = object[camelCaseValue];
           }
           else if( object[camelCaseValue] !== undefined ) {
             found = object[camelCaseValue];
             return false;
           }
-          else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+          else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
             object = object[value];
           }
           else if( object[value] !== undefined ) {
