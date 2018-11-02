@@ -13,9 +13,9 @@
 'use strict';
 
 var
-  window = (typeof window != 'undefined' && window.Math == Math)
+  window = (typeof window !== 'undefined' && window.Math === Math)
     ? window
-    : (typeof self != 'undefined' && self.Math == Math)
+    : (typeof self !== 'undefined' && self.Math === Math)
       ? self
       : Function('return this')()
 ;
@@ -32,7 +32,7 @@ $.api = $.fn.api = function(parameters) {
     performance    = [],
 
     query          = arguments[0],
-    methodInvoked  = (typeof query == 'string'),
+    methodInvoked  = (typeof query === 'string'),
     queryArguments = [].slice.call(arguments, 1),
 
     returnedValue
@@ -115,7 +115,7 @@ $.api = $.fn.api = function(parameters) {
                 .on(triggerEvent + eventNamespace, module.event.trigger)
               ;
             }
-            else if(settings.on == 'now') {
+            else if(settings.on === 'now') {
               module.debug('Querying API endpoint immediately');
               module.query();
             }
@@ -124,7 +124,7 @@ $.api = $.fn.api = function(parameters) {
 
         decode: {
           json: function(response) {
-            if(response !== undefined && typeof response == 'string') {
+            if(response !== undefined && typeof response === 'string') {
               try {
                response = JSON.parse(response);
               }
@@ -296,7 +296,7 @@ $.api = $.fn.api = function(parameters) {
           },
           loading: function() {
             return (module.request)
-              ? (module.request.state() == 'pending')
+              ? (module.request.state() === 'pending')
               : false
             ;
           },
@@ -332,13 +332,13 @@ $.api = $.fn.api = function(parameters) {
             return (module.cancelled || false);
           },
           succesful: function() {
-            return (module.request && module.request.state() == 'resolved');
+            return (module.request && module.request.state() === 'resolved');
           },
           failure: function() {
-            return (module.request && module.request.state() == 'rejected');
+            return (module.request && module.request.state() === 'rejected');
           },
           complete: function() {
-            return (module.request && (module.request.state() == 'resolved' || module.request.state() == 'rejected') );
+            return (module.request && (module.request.state() === 'resolved' || module.request.state() === 'rejected') );
           }
         },
 
@@ -467,7 +467,7 @@ $.api = $.fn.api = function(parameters) {
         event: {
           trigger: function(event) {
             module.query();
-            if(event.type == 'submit' || event.type == 'click') {
+            if(event.type === 'submit' || event.type === 'click') {
               event.preventDefault();
             }
           },
@@ -561,19 +561,19 @@ $.api = $.fn.api = function(parameters) {
                 response     = module.get.responseFromXHR(xhr),
                 errorMessage = module.get.errorFromRequest(response, status, httpMessage)
               ;
-              if(status == 'aborted') {
+              if(status === 'aborted') {
                 module.debug('XHR Aborted (Most likely caused by page navigation or CORS Policy)', status, httpMessage);
                 settings.onAbort.call(context, status, $module, xhr);
                 return true;
               }
-              else if(status == 'invalid') {
+              else if(status === 'invalid') {
                 module.debug('JSON did not pass success test. A server-side error has most likely occurred', response);
               }
-              else if(status == 'error') {
+              else if(status === 'error') {
                 if(xhr !== undefined) {
                   module.debug('XHR produced a server error', status, httpMessage);
                   // make sure we have an error to display to console
-                  if( xhr.status != 200 && httpMessage !== undefined && httpMessage !== '') {
+                  if( xhr.status !== 200 && httpMessage !== undefined && httpMessage !== '') {
                     module.error(error.statusMessage + httpMessage, ajaxSettings.url);
                   }
                   settings.onError.call(context, errorMessage, $module, xhr);
@@ -777,11 +777,11 @@ $.api = $.fn.api = function(parameters) {
             return data;
           },
           event: function() {
-            if( $.isWindow(element) || settings.on == 'now' ) {
+            if( $.isWindow(element) || settings.on === 'now' ) {
               module.debug('API called without element, no events attached');
               return false;
             }
-            else if(settings.on == 'auto') {
+            else if(settings.on === 'auto') {
               if( $module.is('input') ) {
                 return (element.oninput !== undefined)
                   ? 'input'
@@ -956,22 +956,22 @@ $.api = $.fn.api = function(parameters) {
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
+          if(typeof query === 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
+              var camelCaseValue = (depth !== maxDepth)
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
                 object = object[camelCaseValue];
               }
               else if( object[camelCaseValue] !== undefined ) {
                 found = object[camelCaseValue];
                 return false;
               }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
                 object = object[value];
               }
               else if( object[value] !== undefined ) {
