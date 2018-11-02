@@ -12,9 +12,9 @@
 
 'use strict';
 
-window = (typeof window != 'undefined' && window.Math == Math)
+window = (typeof window !== 'undefined' && window.Math === Math)
   ? window
-  : (typeof self != 'undefined' && self.Math == Math)
+  : (typeof self !== 'undefined' && self.Math === Math)
     ? self
     : Function('return this')()
 ;
@@ -156,8 +156,8 @@ $.fn.transition = function() {
             ? interval
             : settings.interval
           ;
-          shouldReverse = (settings.reverse == 'auto' && direction == className.outward);
-          delay = (shouldReverse || settings.reverse == true)
+          shouldReverse = (settings.reverse === 'auto' && direction === className.outward);
+          delay = (shouldReverse || settings.reverse === true)
             ? ($allModules.length - index) * settings.interval
             : index * settings.interval
           ;
@@ -332,7 +332,7 @@ $.fn.transition = function() {
           },
           duration: function(animationName, duration) {
             duration = duration || settings.duration;
-            duration = (typeof duration == 'number')
+            duration = (typeof duration === 'number')
               ? duration + 'ms'
               : duration
             ;
@@ -347,7 +347,7 @@ $.fn.transition = function() {
           },
           direction: function(direction) {
             direction = direction || module.get.direction();
-            if(direction == className.inward) {
+            if(direction === className.inward) {
               module.set.inward();
             }
             else {
@@ -508,11 +508,11 @@ $.fn.transition = function() {
         get: {
           settings: function(animation, duration, onComplete) {
             // single settings object
-            if(typeof animation == 'object') {
+            if(typeof animation === 'object') {
               return $.extend(true, {}, $.fn.transition.settings, animation);
             }
             // all arguments provided
-            else if(typeof onComplete == 'function') {
+            else if(typeof onComplete === 'function') {
               return $.extend({}, $.fn.transition.settings, {
                 animation  : animation,
                 onComplete : onComplete,
@@ -520,20 +520,20 @@ $.fn.transition = function() {
               });
             }
             // only duration provided
-            else if(typeof duration == 'string' || typeof duration == 'number') {
+            else if(typeof duration === 'string' || typeof duration === 'number') {
               return $.extend({}, $.fn.transition.settings, {
                 animation : animation,
                 duration  : duration
               });
             }
             // duration is actually settings object
-            else if(typeof duration == 'object') {
+            else if(typeof duration === 'object') {
               return $.extend({}, $.fn.transition.settings, duration, {
                 animation : animation
               });
             }
             // duration is actually callback
-            else if(typeof duration == 'function') {
+            else if(typeof duration === 'function') {
               return $.extend({}, $.fn.transition.settings, {
                 animation  : animation,
                 onComplete : duration
@@ -717,11 +717,11 @@ $.fn.transition = function() {
               }
 
               $clone.remove();
-              if(currentAnimation != inAnimation) {
+              if(currentAnimation !== inAnimation) {
                 module.debug('Direction exists for animation', animation);
                 directionExists = true;
               }
-              else if(currentAnimation == 'none' || !currentAnimation) {
+              else if(currentAnimation === 'none' || !currentAnimation) {
                 module.debug('No animation defined in css', animation);
                 return;
               }
@@ -953,22 +953,22 @@ $.fn.transition = function() {
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
+          if(typeof query === 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
+              var camelCaseValue = (depth !== maxDepth)
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
                 object = object[camelCaseValue];
               }
               else if( object[camelCaseValue] !== undefined ) {
                 found = object[camelCaseValue];
                 return false;
               }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
                 object = object[value];
               }
               else if( object[value] !== undefined ) {
