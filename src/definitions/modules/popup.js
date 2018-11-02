@@ -12,9 +12,9 @@
 
 'use strict';
 
-window = (typeof window != 'undefined' && window.Math == Math)
+window = (typeof window !== 'undefined' && window.Math === Math)
   ? window
-  : (typeof self != 'undefined' && self.Math == Math)
+  : (typeof self !== 'undefined' && self.Math === Math)
     ? self
     : Function('return this')()
 ;
@@ -33,7 +33,7 @@ $.fn.popup = function(parameters) {
     performance    = [],
 
     query          = arguments[0],
-    methodInvoked  = (typeof query == 'string'),
+    methodInvoked  = (typeof query === 'string'),
     queryArguments = [].slice.call(arguments, 1),
 
     returnedValue
@@ -211,7 +211,7 @@ $.fn.popup = function(parameters) {
             [].forEach.call(mutations, function(mutation) {
               if(mutation.removedNodes) {
                 [].forEach.call(mutation.removedNodes, function(node) {
-                  if(node == element || $(node).find(element).length > 0) {
+                  if(node === element || $(node).find(element).length > 0) {
                     module.debug('Element removed from DOM, tearing down events');
                     module.destroy();
                   }
@@ -504,7 +504,7 @@ $.fn.popup = function(parameters) {
             var
               $popupOffsetParent = module.get.offsetParent($popup),
               targetElement      = $target[0],
-              isWindow           = ($boundary[0] == window),
+              isWindow           = ($boundary[0] === window),
               targetPosition     = (settings.inline || (settings.popup && settings.movePopup))
                 ? $target.position()
                 : $target.offset(),
@@ -594,10 +594,10 @@ $.fn.popup = function(parameters) {
             return id;
           },
           startEvent: function() {
-            if(settings.on == 'hover') {
+            if(settings.on === 'hover') {
               return 'mouseenter';
             }
-            else if(settings.on == 'focus') {
+            else if(settings.on === 'focus') {
               return 'focus';
             }
             return false;
@@ -606,10 +606,10 @@ $.fn.popup = function(parameters) {
             return 'scroll';
           },
           endEvent: function() {
-            if(settings.on == 'hover') {
+            if(settings.on === 'hover') {
               return 'mouseleave';
             }
-            else if(settings.on == 'focus') {
+            else if(settings.on === 'focus') {
               return 'blur';
             }
             return false;
@@ -702,7 +702,7 @@ $.fn.popup = function(parameters) {
                 'bottom left'   : 'left center',
                 'left center'   : 'top left'
               },
-              adjacentsAvailable = (verticalPosition == 'top' || verticalPosition == 'bottom'),
+              adjacentsAvailable = (verticalPosition === 'top' || verticalPosition === 'bottom'),
               oppositeTried = false,
               adjacentTried = false,
               nextPosition  = false
@@ -767,11 +767,11 @@ $.fn.popup = function(parameters) {
 
             if(module.should.centerArrow(calculations)) {
               module.verbose('Adjusting offset to center arrow on small target element');
-              if(position == 'top left' || position == 'bottom left') {
+              if(position === 'top left' || position === 'bottom left') {
                 offset += (target.width / 2)
                 offset -= settings.arrowPixelsFromEdge;
               }
-              if(position == 'top right' || position == 'bottom right') {
+              if(position === 'top right' || position === 'bottom right') {
                 offset -= (target.width / 2)
                 offset += settings.arrowPixelsFromEdge;
               }
@@ -784,11 +784,11 @@ $.fn.popup = function(parameters) {
 
             if(settings.inline) {
               module.debug('Adding margin to calculation', target.margin);
-              if(position == 'left center' || position == 'right center') {
+              if(position === 'left center' || position === 'right center') {
                 offset       +=  target.margin.top;
                 distanceAway += -target.margin.left;
               }
-              else if (position == 'top left' || position == 'top center' || position == 'top right') {
+              else if (position === 'top left' || position === 'top center' || position === 'top right') {
                 offset       += target.margin.left;
                 distanceAway -= target.margin.top;
               }
@@ -802,7 +802,7 @@ $.fn.popup = function(parameters) {
 
             if (module.is.rtl()) {
               position = position.replace(/left|right/g, function (match) {
-                return (match == 'left')
+                return (match === 'left')
                   ? 'right'
                   : 'left'
                 ;
@@ -811,7 +811,7 @@ $.fn.popup = function(parameters) {
             }
 
             // if last attempt use specified last resort position
-            if(searchDepth == settings.maxSearchDepth && typeof settings.lastResort === 'string') {
+            if(searchDepth === settings.maxSearchDepth && typeof settings.lastResort === 'string') {
               position = settings.lastResort;
             }
 
@@ -978,12 +978,12 @@ $.fn.popup = function(parameters) {
         bind: {
           events: function() {
             module.debug('Binding popup events to module');
-            if(settings.on == 'click') {
+            if(settings.on === 'click') {
               $module
                 .on('click' + eventNamespace, module.toggle)
               ;
             }
-            if(settings.on == 'hover' && hasTouch) {
+            if(settings.on === 'hover' && hasTouch) {
               $module
                 .on('touchstart' + eventNamespace, module.event.touchstart)
               ;
@@ -1009,13 +1009,13 @@ $.fn.popup = function(parameters) {
             }
           },
           close: function() {
-            if(settings.hideOnScroll === true || (settings.hideOnScroll == 'auto' && settings.on != 'click')) {
+            if(settings.hideOnScroll === true || (settings.hideOnScroll === 'auto' && settings.on !== 'click')) {
               module.bind.closeOnScroll();
             }
             if(module.is.closable()) {
               module.bind.clickaway();
             }
-            else if(settings.on == 'hover' && openedWithTouch) {
+            else if(settings.on === 'hover' && openedWithTouch) {
               module.bind.touchClose();
             }
           },
@@ -1078,8 +1078,8 @@ $.fn.popup = function(parameters) {
 
         is: {
           closable: function() {
-            if(settings.closable == 'auto') {
-              if(settings.on == 'hover') {
+            if(settings.closable === 'auto') {
+              if(settings.on === 'hover') {
                 return false;
               }
               return true;
@@ -1129,7 +1129,7 @@ $.fn.popup = function(parameters) {
             return !module.is.visible();
           },
           rtl: function () {
-            return $module.css('direction') == 'rtl';
+            return $module.css('direction') === 'rtl';
           }
         },
 
@@ -1257,22 +1257,22 @@ $.fn.popup = function(parameters) {
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
+          if(typeof query === 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
+              var camelCaseValue = (depth !== maxDepth)
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
                 object = object[camelCaseValue];
               }
               else if( object[camelCaseValue] !== undefined ) {
                 found = object[camelCaseValue];
                 return false;
               }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
                 object = object[value];
               }
               else if( object[value] !== undefined ) {
