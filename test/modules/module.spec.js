@@ -35,7 +35,7 @@ function moduleTests(ui) {
     $module       = $(element);
 
     // one module available in fixture
-    if($module.size() == 1) {
+    if($module.size() === 1) {
       $oneModule = $module;
       $clone     = $module.clone().appendTo( $(sandbox()) );
       $modules   = $clone.add($module);
