@@ -35,16 +35,16 @@ var when = {
   },
 
   allowOverwrite: function(questions) {
-    return (questions.overwrite === undefined || questions.overwrite == 'yes');
+    return (questions.overwrite === undefined || questions.overwrite === 'yes');
   },
   notAuto: function(questions) {
-    return (questions.install !== 'auto' && (questions.overwrite === undefined || questions.overwrite == 'yes'));
+    return (questions.install !== 'auto' && (questions.overwrite === undefined || questions.overwrite === 'yes'));
   },
   custom: function(questions) {
-    return (questions.install === 'custom' && (questions.overwrite === undefined || questions.overwrite == 'yes'));
+    return (questions.install === 'custom' && (questions.overwrite === undefined || questions.overwrite === 'yes'));
   },
   express: function(questions) {
-    return (questions.install === 'express' && (questions.overwrite === undefined || questions.overwrite == 'yes'));
+    return (questions.install === 'express' && (questions.overwrite === undefined || questions.overwrite === 'yes'));
   },
 
   // customize
@@ -100,25 +100,25 @@ module.exports = {
           folder        = pathArray[pathArray.length - 1],
           nextDirectory = path.join(directory, path.sep, '..')
         ;
-        if( folder == 'bower_components') {
+        if( folder === 'bower_components') {
           return {
             name: 'Bower',
             root: nextDirectory
           };
         }
-        else if(folder == 'node_modules') {
+        else if(folder === 'node_modules') {
          return {
             name: 'NPM',
             root: nextDirectory
           };
         }
-        else if(folder == 'composer') {
+        else if(folder === 'composer') {
          return {
             name: 'Composer',
             root: nextDirectory
           };
         }
-        if(path.resolve(directory) == path.resolve(nextDirectory)) {
+        if(path.resolve(directory) === path.resolve(nextDirectory)) {
           return false;
         }
         // recurse downward
@@ -140,16 +140,16 @@ module.exports = {
           folder        = pathArray[pathArray.length - 2],
           nextDirectory = path.join(directory, path.sep, '..')
         ;
-        if( folder == 'bower_components') {
+        if( folder === 'bower_components') {
           moduleFolders++;
         }
-        else if(folder == 'node_modules') {
+        else if(folder === 'node_modules') {
           moduleFolders++;
         }
-        else if(folder == 'composer') {
+        else if(folder === 'composer') {
           moduleFolders++;
         }
-        if(path.resolve(directory) == path.resolve(nextDirectory)) {
+        if(path.resolve(directory) === path.resolve(nextDirectory)) {
           return (moduleFolders > 1);
         }
         // recurse downward
