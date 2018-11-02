@@ -12,9 +12,9 @@
 
 'use strict';
 
-window = (typeof window != 'undefined' && window.Math == Math)
+window = (typeof window !== 'undefined' && window.Math === Math)
   ? window
-  : (typeof self != 'undefined' && self.Math == Math)
+  : (typeof self !== 'undefined' && self.Math === Math)
     ? self
     : Function('return this')()
 ;
@@ -28,7 +28,7 @@ $.fn.sticky = function(parameters) {
     performance    = [],
 
     query          = arguments[0],
-    methodInvoked  = (typeof query == 'string'),
+    methodInvoked  = (typeof query === 'string'),
     queryArguments = [].slice.call(arguments, 1),
     returnedValue
   ;
@@ -194,7 +194,7 @@ $.fn.sticky = function(parameters) {
             [].forEach.call(mutations, function(mutation) {
               if(mutation.removedNodes) {
                 [].forEach.call(mutation.removedNodes, function(node) {
-                  if(node == element || $(node).find(element).length > 0) {
+                  if(node === element || $(node).find(element).length > 0) {
                     module.debug('Element removed from DOM, tearing down events');
                     module.destroy();
                   }
@@ -287,7 +287,7 @@ $.fn.sticky = function(parameters) {
             }
             module.cache = {
               fits          : ( (element.height + settings.offset) <= scrollContext.height),
-              sameHeight    : (element.height == context.height),
+              sameHeight    : (element.height === context.height),
               scrollContext : {
                 height : scrollContext.height
               },
@@ -396,7 +396,7 @@ $.fn.sticky = function(parameters) {
             var
               tagName = $container.get(0).tagName
             ;
-            if(tagName === 'HTML' || tagName == 'body') {
+            if(tagName === 'HTML' || tagName === 'body') {
               // this can trigger for too many reasons
               //module.error(error.container, tagName, $module);
               module.determineContainer();
@@ -420,7 +420,7 @@ $.fn.sticky = function(parameters) {
           },
           scroll: function(scroll) {
             module.debug('Setting scroll on element', scroll);
-            if(module.elementScroll == scroll) {
+            if(module.elementScroll === scroll) {
               return;
             }
             if( module.is.top() ) {
@@ -446,7 +446,7 @@ $.fn.sticky = function(parameters) {
 
         is: {
           standardScroll: function() {
-            return ($scroll[0] == window);
+            return ($scroll[0] === window);
           },
           top: function() {
             return $module.hasClass(className.top);
@@ -819,22 +819,22 @@ $.fn.sticky = function(parameters) {
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
+          if(typeof query === 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
+              var camelCaseValue = (depth !== maxDepth)
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
                 object = object[camelCaseValue];
               }
               else if( object[camelCaseValue] !== undefined ) {
                 found = object[camelCaseValue];
                 return false;
               }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
                 object = object[value];
               }
               else if( object[value] !== undefined ) {
