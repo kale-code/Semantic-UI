@@ -119,7 +119,7 @@ module.exports = function(callback) {
       createList = function(files) {
         var filenames = '';
         for(var file in files) {
-          if(file == (files.length - 1) ) {
+          if(file === (files.length - 1) ) {
             filenames += "'" + files[file] + "'";
           }
           else {
@@ -145,7 +145,7 @@ module.exports = function(callback) {
         ;
       });
 
-      if(distribution == 'CSS') {
+      if(distribution === 'CSS') {
         gulp.task(task.repo, function() {
           var
             themes,
@@ -164,7 +164,7 @@ module.exports = function(callback) {
           return mergeStream(themes, components, releases);
         });
       }
-      else if(distribution == 'LESS') {
+      else if(distribution === 'LESS') {
         gulp.task(task.repo, function() {
           var
             definitions,
