@@ -12,9 +12,9 @@
 
 'use strict';
 
-window = (typeof window != 'undefined' && window.Math == Math)
+window = (typeof window !== 'undefined' && window.Math === Math)
   ? window
-  : (typeof self != 'undefined' && self.Math == Math)
+  : (typeof self !== 'undefined' && self.Math === Math)
     ? self
     : Function('return this')()
 ;
@@ -28,7 +28,7 @@ $.fn.nag = function(parameters) {
     performance    = [],
 
     query          = arguments[0],
-    methodInvoked  = (typeof query == 'string'),
+    methodInvoked  = (typeof query === 'string'),
     queryArguments = [].slice.call(arguments, 1),
     returnedValue
   ;
@@ -110,7 +110,7 @@ $.fn.nag = function(parameters) {
         show: function() {
           if( module.should.show() && !$module.is(':visible') ) {
             module.debug('Showing nag', settings.animation.show);
-            if(settings.animation.show == 'fade') {
+            if(settings.animation.show === 'fade') {
               $module
                 .fadeIn(settings.duration, settings.easing)
               ;
@@ -125,7 +125,7 @@ $.fn.nag = function(parameters) {
 
         hide: function() {
           module.debug('Showing nag', settings.animation.hide);
-          if(settings.animation.show == 'fade') {
+          if(settings.animation.show === 'fade') {
             $module
               .fadeIn(settings.duration, settings.easing)
             ;
@@ -160,7 +160,7 @@ $.fn.nag = function(parameters) {
               module.debug('Persistent nag is set, can show nag');
               return true;
             }
-            if( module.storage.get(settings.key) != settings.value.toString() ) {
+            if( module.storage.get(settings.key) !== settings.value.toString() ) {
               module.debug('Stored value is not set, can show nag', module.storage.get(settings.key));
               return true;
             }
@@ -196,11 +196,11 @@ $.fn.nag = function(parameters) {
             var
               options = module.get.storageOptions()
             ;
-            if(settings.storageMethod == 'localstorage' && window.localStorage !== undefined) {
+            if(settings.storageMethod === 'localstorage' && window.localStorage !== undefined) {
               window.localStorage.setItem(key, value);
               module.debug('Value stored using local storage', key, value);
             }
-            else if(settings.storageMethod == 'sessionstorage' && window.sessionStorage !== undefined) {
+            else if(settings.storageMethod === 'sessionstorage' && window.sessionStorage !== undefined) {
               window.sessionStorage.setItem(key, value);
               module.debug('Value stored using session storage', key, value);
             }
@@ -217,10 +217,10 @@ $.fn.nag = function(parameters) {
             var
               storedValue
             ;
-            if(settings.storageMethod == 'localstorage' && window.localStorage !== undefined) {
+            if(settings.storageMethod === 'localstorage' && window.localStorage !== undefined) {
               storedValue = window.localStorage.getItem(key);
             }
-            else if(settings.storageMethod == 'sessionstorage' && window.sessionStorage !== undefined) {
+            else if(settings.storageMethod === 'sessionstorage' && window.sessionStorage !== undefined) {
               storedValue = window.sessionStorage.getItem(key);
             }
             // get by cookie
@@ -230,7 +230,7 @@ $.fn.nag = function(parameters) {
             else {
               module.error(error.noCookieStorage);
             }
-            if(storedValue == 'undefined' || storedValue == 'null' || storedValue === undefined || storedValue === null) {
+            if(storedValue === 'undefined' || storedValue === 'null' || storedValue === undefined || storedValue === null) {
               storedValue = undefined;
             }
             return storedValue;
@@ -239,10 +239,10 @@ $.fn.nag = function(parameters) {
             var
               options = module.get.storageOptions()
             ;
-            if(settings.storageMethod == 'localstorage' && window.localStorage !== undefined) {
+            if(settings.storageMethod === 'localstorage' && window.localStorage !== undefined) {
               window.localStorage.removeItem(key);
             }
-            else if(settings.storageMethod == 'sessionstorage' && window.sessionStorage !== undefined) {
+            else if(settings.storageMethod === 'sessionstorage' && window.sessionStorage !== undefined) {
               window.sessionStorage.removeItem(key);
             }
             // store by cookie
@@ -371,22 +371,22 @@ $.fn.nag = function(parameters) {
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
+          if(typeof query === 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
+              var camelCaseValue = (depth !== maxDepth)
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
                 object = object[camelCaseValue];
               }
               else if( object[camelCaseValue] !== undefined ) {
                 found = object[camelCaseValue];
                 return false;
               }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
                 object = object[value];
               }
               else if( object[value] !== undefined ) {
