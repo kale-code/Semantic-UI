@@ -338,7 +338,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       toHaveCss: function (css){
         for (var prop in css){
           var value = css[prop]
-          // see issue #147 on gh
           ;if (value === 'auto' && this.actual.get(0).style[prop] === 'auto') continue
           if (this.actual.css(prop) !== value) return false
         }
@@ -382,11 +381,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       },
 
       toHaveId: function (id) {
-        return this.actual.attr('id') == id
+        return this.actual.attr('id') === id
       },
 
       toHaveHtml: function (html) {
-        return this.actual.html() == jasmine.JQuery.browserTagCaseIndependentHtml(html)
+        return this.actual.html() === jasmine.JQuery.browserTagCaseIndependentHtml(html)
       },
 
       toContainHtml: function (html){
@@ -402,7 +401,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         if (text && $.isFunction(text.test)) {
           return text.test(trimmedText)
         } else {
-          return trimmedText == text
+          return trimmedText === text
         }
       },
 
@@ -412,7 +411,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         if (text && $.isFunction(text.test)) {
           return text.test(trimmedText)
         } else {
-          return trimmedText.indexOf(text) != -1
+          return trimmedText.indexOf(text) !== -1
         }
       },
 
@@ -474,7 +473,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           , stack = $._data(this.actual.get(0), "events")[normalizedEventName]
 
         for (var i = 0; i < stack.length; i++) {
-          if (stack[i].handler == eventHandler) return true
+          if (stack[i].handler === eventHandler) return true
         }
 
         return false
@@ -484,7 +483,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     var hasProperty = function (actualValue, expectedValue) {
       if (expectedValue === undefined) return actualValue !== undefined
 
-      return actualValue == expectedValue
+      return actualValue === expectedValue
     }
 
     var bindMatcher = function (methodName) {
@@ -622,7 +621,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     })
     jasmine.getEnv().addEqualityTester(function (a, b) {
       if(a instanceof jQuery && b instanceof jQuery) {
-        if(a.size() != b.size()) {
+        if(a.size() !== b.size()) {
           return jasmine.undefined
         }
         else if(a.is(b)) {
