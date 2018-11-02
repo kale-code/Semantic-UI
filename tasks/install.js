@@ -168,7 +168,7 @@ if(currentConfig && manager.name === 'NPM') {
 ---------------*/
 
 // PM that supports Build Tools (NPM Only Now)
-if(manager.name == 'NPM') {
+if(manager.name === 'NPM') {
   rootQuestions[0].message = rootQuestions[0].message
     .replace('{packageMessage}', 'We detected you are using ' + manager.name + ' Nice!')
     .replace('{root}', manager.root)
@@ -218,7 +218,7 @@ gulp.task('create install files', function(callback) {
   ---------------*/
 
   // if config exists and user specifies not to proceed
-  if(answers.overwrite !== undefined && answers.overwrite == 'no') {
+  if(answers.overwrite !== undefined && answers.overwrite === 'no') {
     return;
   }
   console.clear();
@@ -278,7 +278,7 @@ gulp.task('create install files', function(callback) {
     for(var destination in installPaths) {
       if( installPaths.hasOwnProperty(destination) ) {
         // config goes in project root, rest in install folder
-        installPaths[destination] = (destination == 'config' || destination == 'configFolder')
+        installPaths[destination] = (destination === 'config' || destination === 'configFolder')
           ? path.normalize( path.join(manager.root, installPaths[destination]) )
           : path.normalize( path.join(installFolder, installPaths[destination]) )
         ;
@@ -436,10 +436,10 @@ gulp.task('clean up install', function() {
     return gulp
       .src('gulpfile.js')
       .pipe(prompt.prompt(questions.cleanup, function(answers) {
-        if(answers.cleanup == 'yes') {
+        if(answers.cleanup === 'yes') {
           del(install.setupFiles);
         }
-        if(answers.build == 'yes') {
+        if(answers.build === 'yes') {
           gulp.start('build');
         }
       }))
