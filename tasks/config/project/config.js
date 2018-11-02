@@ -32,7 +32,7 @@ module.exports = {
         }
         else {
           // reached file system root, let's stop
-          if(nextDirectory == directory) {
+          if(nextDirectory === directory) {
             return;
           }
           // otherwise recurse
@@ -121,12 +121,12 @@ module.exports = {
     // remove duplicates from component array
     if(config.components instanceof Array) {
       config.components = config.components.filter(function(component, index) {
-        return config.components.indexOf(component) == index;
+        return config.components.indexOf(component) === index;
       });
     }
 
     // takes component object and creates file glob matching selected components
-    config.globs.components = (typeof config.components == 'object')
+    config.globs.components = (typeof config.components === 'object')
       ? (config.components.length > 1)
         ? '{' + config.components.join(',') + '}'
         : config.components[0]
