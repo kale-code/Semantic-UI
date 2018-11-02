@@ -12,9 +12,9 @@
 
 'use strict';
 
-window = (typeof window != 'undefined' && window.Math == Math)
+window = (typeof window !== 'undefined' && window.Math === Math)
   ? window
-  : (typeof self != 'undefined' && self.Math == Math)
+  : (typeof self !== 'undefined' && self.Math === Math)
     ? self
     : Function('return this')()
 ;
@@ -28,7 +28,7 @@ $.fn.search = function(parameters) {
     performance     = [],
 
     query           = arguments[0],
-    methodInvoked   = (typeof query == 'string'),
+    methodInvoked   = (typeof query === 'string'),
     queryArguments  = [].slice.call(arguments, 1),
     returnedValue
   ;
@@ -238,7 +238,7 @@ $.fn.search = function(parameters) {
               }
               if(href) {
                 module.verbose('Opening search link found in result', $link);
-                if(target == '_blank' || event.ctrlKey) {
+                if(target === '_blank' || event.ctrlKey) {
                   window.open(href);
                 }
                 else {
@@ -269,13 +269,13 @@ $.fn.search = function(parameters) {
             newIndex
           ;
           // search shortcuts
-          if(keyCode == keys.escape) {
+          if(keyCode === keys.escape) {
             module.verbose('Escape key pressed, blurring search field');
             module.hideResults();
             resultsDismissed = true;
           }
           if( module.is.visible() ) {
-            if(keyCode == keys.enter) {
+            if(keyCode === keys.enter) {
               module.verbose('Enter key pressed, selecting active result');
               if( $result.filter('.' + className.active).length > 0 ) {
                 module.event.result.click.call($result.filter('.' + className.active), event);
@@ -283,7 +283,7 @@ $.fn.search = function(parameters) {
                 return false;
               }
             }
-            else if(keyCode == keys.upArrow && hasActiveResult) {
+            else if(keyCode === keys.upArrow && hasActiveResult) {
               module.verbose('Up key pressed, changing active result');
               newIndex = (currentIndex - 1 < 0)
                 ? currentIndex
@@ -301,7 +301,7 @@ $.fn.search = function(parameters) {
               ;
               event.preventDefault();
             }
-            else if(keyCode == keys.downArrow) {
+            else if(keyCode === keys.downArrow) {
               module.verbose('Down key pressed, changing active result');
               newIndex = (currentIndex + 1 >= resultSize)
                 ? currentIndex
@@ -322,7 +322,7 @@ $.fn.search = function(parameters) {
           }
           else {
             // query shortcuts
-            if(keyCode == keys.enter) {
+            if(keyCode === keys.enter) {
               module.verbose('Enter key pressed, executing query');
               module.query();
               module.set.buttonPressed();
@@ -484,7 +484,7 @@ $.fn.search = function(parameters) {
           },
           type: function(type) {
             type = type || settings.type;
-            if(settings.type == 'category') {
+            if(settings.type === 'category') {
               $module.addClass(settings.type);
             }
           },
@@ -557,7 +557,7 @@ $.fn.search = function(parameters) {
               module.debug('Using specified max results', results);
               results = results.slice(0, settings.maxResults);
             }
-            if(settings.type == 'category') {
+            if(settings.type === 'category') {
               results = module.create.categoryResults(results);
             }
             searchHTML = module.generateResults({
@@ -595,9 +595,9 @@ $.fn.search = function(parameters) {
               // avoid duplicates when pushing results
               addResult = function(array, result) {
                 var
-                  notResult      = ($.inArray(result, results) == -1),
-                  notFuzzyResult = ($.inArray(result, fuzzyResults) == -1),
-                  notExactResults = ($.inArray(result, exactResults) == -1)
+                  notResult      = ($.inArray(result, results) === -1),
+                  notFuzzyResult = ($.inArray(result, fuzzyResults) === -1),
+                  notExactResults = ($.inArray(result, exactResults) === -1)
                 ;
                 if(notResult && notFuzzyResult && notExactResults) {
                   array.push(result);
@@ -624,7 +624,7 @@ $.fn.search = function(parameters) {
             $.each(searchFields, function(index, field) {
               $.each(source, function(label, content) {
                 var
-                  fieldExists = (typeof content[field] == 'string')
+                  fieldExists = (typeof content[field] === 'string')
                 ;
                 if(fieldExists) {
                   if( content[field].search(matchRegExp) !== -1) {
@@ -635,7 +635,7 @@ $.fn.search = function(parameters) {
                     // content fuzzy matches (last in results)
                     addResult(exactResults, content);
                   }
-                  else if(settings.fullTextSearch == true && module.fuzzySearch(searchTerm, content[field]) ) {
+                  else if(settings.fullTextSearch === true && module.fuzzySearch(searchTerm, content[field]) ) {
                     // content fuzzy matches (last in results)
                     addResult(fuzzyResults, content);
                   }
@@ -728,7 +728,7 @@ $.fn.search = function(parameters) {
             var
               html = $results.html()
             ;
-            return html != '';
+            return html !== '';
           }
         },
 
@@ -756,7 +756,7 @@ $.fn.search = function(parameters) {
             ;
             if(settings.cache) {
               module.verbose('Checking cache for generated html for query', name);
-              return (typeof cache == 'object') && (cache[name] !== undefined)
+              return (typeof cache === 'object') && (cache[name] !== undefined)
                 ? cache[name]
                 : false
               ;
@@ -1002,7 +1002,7 @@ $.fn.search = function(parameters) {
           if(isProperObject || isProperArray ) {
             if(settings.maxResults > 0) {
               if(isProperObject) {
-                if(settings.type == 'standard') {
+                if(settings.type === 'standard') {
                   module.error(error.maxResults);
                 }
               }
@@ -1144,22 +1144,22 @@ $.fn.search = function(parameters) {
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
+          if(typeof query === 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
+              var camelCaseValue = (depth !== maxDepth)
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
                 object = object[camelCaseValue];
               }
               else if( object[camelCaseValue] !== undefined ) {
                 found = object[camelCaseValue];
                 return false;
               }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
                 object = object[value];
               }
               else if( object[value] !== undefined ) {
@@ -1375,7 +1375,7 @@ $.fn.search.settings = {
           + '<div class="message ' + type + '">'
         ;
         // message type
-        if(type == 'empty') {
+        if(type === 'empty') {
           html += ''
             + '<div class="header">No Results</div class="header">'
             + '<div class="description">' + message + '</div class="description">'
