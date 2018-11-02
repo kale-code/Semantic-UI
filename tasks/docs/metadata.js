@@ -25,7 +25,7 @@ function startsWith(str, prefix) {
 function inArray(needle, haystack) {
   var length = haystack.length;
   for(var i = 0; i < length; i++) {
-      if(haystack[i] == needle) return true;
+      if(haystack[i] === needle) return true;
   }
   return false;
 }
@@ -121,7 +121,7 @@ function parser(file, callback) {
 
   }
 
-  catch(error) {
+  catch (error) {
     console.log(error, filename);
   }
 
