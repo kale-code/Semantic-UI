@@ -79,7 +79,7 @@ module.exports = function(callback) {
         ? require(outputDirectory + 'package.json')
         : false,
 
-      isNewVersion  = (version && componentPackage.version != version),
+      isNewVersion  = (version && componentPackage.version !== version),
 
       commitMessage = (isNewVersion)
         ? 'Updated component to version ' + version
