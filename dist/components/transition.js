@@ -19,7 +19,7 @@ window = (typeof window !== 'undefined' && window.Math === Math)
     : Function('return this')()
 ;
 
-$.fn.transition = function() {
+$.fn.transition = function(...params) {
   var
     $allModules     = $(this),
     moduleSelector  = $allModules.selector || '',
@@ -27,9 +27,9 @@ $.fn.transition = function() {
     time            = new Date().getTime(),
     performance     = [],
 
-    moduleArguments = arguments,
+    moduleArguments = params,
     query           = moduleArguments[0],
-    queryArguments  = [].slice.call(arguments, 1),
+    queryArguments  = [].slice.call(params, 1),
     methodInvoked   = (typeof query === 'string'),
 
     requestAnimationFrame = window.requestAnimationFrame
