@@ -12,9 +12,9 @@
 
 'use strict';
 
-window = (typeof window != 'undefined' && window.Math == Math)
+window = (typeof window !== 'undefined' && window.Math === Math)
   ? window
-  : (typeof self != 'undefined' && self.Math == Math)
+  : (typeof self !== 'undefined' && self.Math === Math)
     ? self
     : Function('return this')()
 ;
@@ -28,7 +28,7 @@ $.fn.shape = function(parameters) {
     performance     = [],
 
     query           = arguments[0],
-    methodInvoked   = (typeof query == 'string'),
+    methodInvoked   = (typeof query === 'string'),
     queryArguments  = [].slice.call(arguments, 1),
 
     requestAnimationFrame = window.requestAnimationFrame
@@ -186,7 +186,7 @@ $.fn.shape = function(parameters) {
 
         is: {
           complete: function() {
-            return ($side.filter('.' + className.active)[0] == $nextSide[0]);
+            return ($side.filter('.' + className.active)[0] === $nextSide[0]);
           },
           animating: function() {
             return $module.hasClass(className.animating);
@@ -208,7 +208,7 @@ $.fn.shape = function(parameters) {
 
           duration: function(duration) {
             duration = duration || settings.duration;
-            duration = (typeof duration == 'number')
+            duration = (typeof duration === 'number')
               ? duration + 'ms'
               : duration
             ;
@@ -249,14 +249,14 @@ $.fn.shape = function(parameters) {
                 : ( $activeSide.next(selector.side).length > 0 )
                   ? $activeSide.next(selector.side)
                   : $clone.find(selector.side).first(),
-              newWidth    = (settings.width == 'next')
+              newWidth    = (settings.width === 'next')
                 ? $nextSide.outerWidth(true)
-                : (settings.width == 'initial')
+                : (settings.width === 'initial')
                   ? $module.width()
                   : settings.width,
-              newHeight    = (settings.height == 'next')
+              newHeight    = (settings.height === 'next')
                 ? $nextSide.outerHeight(true)
-                : (settings.height == 'initial')
+                : (settings.height === 'initial')
                   ? $module.height()
                   : settings.height
             ;
@@ -264,11 +264,11 @@ $.fn.shape = function(parameters) {
             $nextSide.addClass(className.active);
             $clone.insertAfter($module);
             $clone.remove();
-            if(settings.width != 'auto') {
+            if(settings.width !== 'auto') {
               $module.css('width', newWidth + settings.jitter);
               module.verbose('Specifying width during animation', newWidth);
             }
-            if(settings.height != 'auto') {
+            if(settings.height !== 'auto') {
               $module.css('height', newHeight + settings.jitter);
               module.verbose('Specifying height during animation', newHeight);
             }
@@ -789,22 +789,22 @@ $.fn.shape = function(parameters) {
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
+          if(typeof query === 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
+              var camelCaseValue = (depth !== maxDepth)
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
                 object = object[camelCaseValue];
               }
               else if( object[camelCaseValue] !== undefined ) {
                 found = object[camelCaseValue];
                 return false;
               }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
                 object = object[value];
               }
               else if( object[value] !== undefined ) {
