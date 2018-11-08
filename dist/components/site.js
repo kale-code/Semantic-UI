@@ -285,14 +285,14 @@ $.site = $.fn.site = function(parameters) {
         }
       }
     },
-    verbose: function() {
+    verbose: function(...params) {
       if(settings.verbose && settings.debug) {
         if(settings.performance) {
-          module.performance.log(arguments);
+          module.performance.log(params);
         }
         else {
           module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
-          module.verbose.apply(console, arguments);
+          module.verbose.apply(console, params);
         }
       }
     },
