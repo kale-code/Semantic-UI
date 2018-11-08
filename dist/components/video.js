@@ -24,7 +24,7 @@ $.fn.video = function(parameters) {
     performance     = [],
 
     query           = arguments[0],
-    methodInvoked   = (typeof query == 'string'),
+    methodInvoked   = (typeof query === 'string'),
     queryArguments  = [].slice.call(arguments, 1),
 
     requestAnimationFrame = window.requestAnimationFrame
@@ -195,14 +195,14 @@ $.fn.video = function(parameters) {
                 source = module.get.source(url);
                 id     = module.get.id(url);
               }
-              if(source == 'vimeo') {
+              if(source === 'vimeo') {
                 html = ''
                   + '<iframe src="//player.vimeo.com/video/' + id + '?=' + module.generate.url(source) + '"'
                   + ' width="100%" height="100%"'
                   + ' frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'
                 ;
               }
-              else if(source == 'youtube') {
+              else if(source === 'youtube') {
                 html = ''
                   + '<iframe src="//www.youtube.com/embed/' + id + '?=' + module.generate.url(source) + '"'
                   + ' width="100%" height="100%"'
@@ -237,7 +237,7 @@ $.fn.video = function(parameters) {
                 : 0,
               url = ''
             ;
-            if(source == 'vimeo') {
+            if(source === 'vimeo') {
               url = ''
                 +      'api='      + api
                 + '&amp;title='    + showUI
@@ -249,7 +249,7 @@ $.fn.video = function(parameters) {
                 url += '&amp;color=' + settings.color;
               }
             }
-            if(source == 'ustream') {
+            if(source === 'ustream') {
               url = ''
                 + 'autoplay=' + autoplay
               ;
@@ -257,7 +257,7 @@ $.fn.video = function(parameters) {
                 url += '&amp;color=' + settings.color;
               }
             }
-            else if(source == 'youtube') {
+            else if(source === 'youtube') {
               url = ''
                 + 'enablejsapi='      + api
                 + '&amp;autoplay='    + autoplay
@@ -385,22 +385,22 @@ $.fn.video = function(parameters) {
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
+          if(typeof query === 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
+              var camelCaseValue = (depth !== maxDepth)
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth !== maxDepth) ) {
                 object = object[camelCaseValue];
               }
               else if( object[camelCaseValue] !== undefined ) {
                 found = object[camelCaseValue];
                 return false;
               }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              else if( $.isPlainObject( object[value] ) && (depth !== maxDepth) ) {
                 object = object[value];
               }
               else if( object[value] !== undefined ) {
