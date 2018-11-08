@@ -128,7 +128,7 @@
   }
 
   function output(type,iframeId,msg,enabled) {
-    if (true === enabled && 'object' === typeof window.console) {
+    if (enabled === true && typeof window.console === 'object') {
       console[type](formatLogHeader(iframeId),msg);
     }
   }
@@ -753,7 +753,7 @@
           iframe.scrolling = 'no';
           break;
         default:
-          iframe.scrolling = settings[iframeId] ? settings[iframeId].scrolling : 'no';
+          iframe.scrolling = settings[iframeId] ? settings[iframeId].scrolling : 'no';;
       }
     }
 
