@@ -791,14 +791,14 @@ $.fn.sidebar = function(parameters) {
             return module[name];
           }
         },
-        debug: function() {
+        debug: function(...params) {
           if(!settings.silent && settings.debug) {
             if(settings.performance) {
-              module.performance.log(arguments);
+              module.performance.log(params);
             }
             else {
               module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
-              module.debug.apply(console, arguments);
+              module.debug.apply(console, params);
             }
           }
         },
