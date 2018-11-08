@@ -389,7 +389,7 @@ $.fn.form = function(parameters) {
             }
             return (rule.value !== undefined)
               ? rule.value
-              : rule.type.match(settings.regExp.bracket)[1] + ''
+              : String(rule.type.match(settings.regExp.bracket)[1])
             ;
           },
           ruleName: function(rule) {
@@ -1028,7 +1028,7 @@ $.fn.form = function(parameters) {
             // cast to string avoiding encoding special values
             value = (value === undefined || value === '' || value === null)
               ? ''
-              : $.trim(value + '')
+              : $.trim(String(value))
             ;
             return ruleFunction.call($field, value, ancillary);
           }
