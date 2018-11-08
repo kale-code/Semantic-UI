@@ -39,7 +39,7 @@ $.fn.popup = function(parameters) {
     returnedValue
   ;
   $allModules
-    .each(function() {
+    .each(function(...params) {
       var
         settings        = ( $.isPlainObject(parameters) )
           ? $.extend(true, {}, $.fn.popup.settings, parameters)
