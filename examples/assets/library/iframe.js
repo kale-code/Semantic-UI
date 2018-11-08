@@ -178,7 +178,7 @@
         log(iframeId,'Set ' + dimension + ' to max value');
       }
 
-      messageData[dimension] = '' + size;
+      messageData[dimension] = String(size);
     }
 
 
@@ -213,7 +213,7 @@
         origin      = event.origin,
         checkOrigin = settings[iframeId] && settings[iframeId].checkOrigin;
 
-      if (checkOrigin && (''+origin !== 'null') && !checkAllowedOrigin()) {
+      if (checkOrigin && (String(origin) !== 'null') && !checkAllowedOrigin()) {
         throw new Error(
           'Unexpected message received from: ' + origin +
           ' for ' + messageData.iframe.id +
@@ -226,7 +226,7 @@
     }
 
     function isMessageForUs() {
-      return msgId === (('' + msg).substr(0,msgIdLen)) && (msg.substr(msgIdLen).split(':')[0] in settings); //''+Protects against non-string msg
+      return msgId === (String(msg).substr(0,msgIdLen)) && (msg.substr(msgIdLen).split(':')[0] in settings); //''+Protects against non-string msg
     }
 
     function isMessageFromMetaParent() {
@@ -753,7 +753,7 @@
           iframe.scrolling = 'no';
           break;
         default:
-          iframe.scrolling = settings[iframeId] ? settings[iframeId].scrolling : 'no';;
+          iframe.scrolling = settings[iframeId] ? settings[iframeId].scrolling : 'no';
       }
     }
 
@@ -763,7 +763,7 @@
     function setupBodyMarginValues() {
       if (('number'===typeof(settings[iframeId] && settings[iframeId].bodyMargin)) || ('0'===(settings[iframeId] && settings[iframeId].bodyMargin))) {
         settings[iframeId].bodyMarginV1 = settings[iframeId].bodyMargin;
-        settings[iframeId].bodyMargin   = '' + settings[iframeId].bodyMargin + 'px';
+        settings[iframeId].bodyMargin   = String(settings[iframeId].bodyMargin) + 'px';
       }
     }
 
