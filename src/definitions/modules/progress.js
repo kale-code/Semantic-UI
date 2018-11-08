@@ -280,7 +280,7 @@ $.fn.progress = function(parameters) {
           numericValue: function(value) {
             return (typeof value === 'string')
               ? (value.replace(/[^\d.]/g, '') !== '')
-                ? +(value.replace(/[^\d.]/g, ''))
+                ? Number(value.replace(/[^\d.]/g, ''))
                 : false
               : value
             ;
@@ -429,7 +429,7 @@ $.fn.progress = function(parameters) {
           },
           percent: function(percent) {
             percent = (typeof percent === 'string')
-              ? +(percent.replace('%', ''))
+              ? Number(percent.replace('%', ''))
               : percent
             ;
             // round display percentage
