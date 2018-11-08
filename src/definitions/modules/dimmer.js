@@ -517,10 +517,10 @@ $.fn.dimmer = function(parameters) {
             }
           }
         },
-        error: function() {
+        error: function(...params) {
           if(!settings.silent) {
             module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
-            module.error.apply(console, arguments);
+            module.error.apply(console, params);
           }
         },
         performance: {
