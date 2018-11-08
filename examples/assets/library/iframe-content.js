@@ -552,7 +552,7 @@
       },
 
       size: function sizeF(customHeight, customWidth) {
-        var valString = ''+(customHeight?customHeight:'')+(customWidth?','+customWidth:'');
+        var valString = String(customHeight?customHeight:'')+(customWidth?','+customWidth:'');
         //lockTrigger();
         sendSize('size','parentIFrame.size('+valString+')', customHeight, customWidth);
       }
@@ -1048,7 +1048,7 @@
     };
 
     function isMessageForUs() {
-      return msgID === (''+event.data).substr(0,msgIdLen); //''+ Protects against non-string messages
+      return msgID === String(event.data).substr(0,msgIdLen); //''+ Protects against non-string messages
     }
 
     function getMessageType() {
