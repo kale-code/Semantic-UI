@@ -23,12 +23,11 @@
 
     getMatcherFunction = function(sinonName, matcherName) {
       var original = jasmine.Matchers.prototype[matcherName];
-      return function () {
+      return function (...args) {
         if (jasmine.isSpy(this.actual) && original) {
-          return original.apply(this, arguments);
+          return original.apply(this, args);
         }
         var sinonProperty = this.actual[sinonName];
-        var args = Array.prototype.slice.call(arguments);
 
         for (var i = 0; i < args.length; i++) {
           if (args[i] && (typeof args[i].jasmineMatches === 'function' || args[i] instanceof jasmine.Matchers.ObjectContaining)) {
